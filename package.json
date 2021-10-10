@@ -1,0 +1,19 @@
+{
+  "name": "golden-shoe-ecommerce",
+  "version": "1.0.0",
+  "description": "An eCommerce application of the Golden Shoe store ",
+  "main": "/server/server.ts",
+  "scripts": {
+    "client": "npm start --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WadeeaKiwan/Golden-Shoe-eCommerce.git"
+  },
+  "author": "Wadeea Kiwan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WadeeaKiwan/Golden-Shoe-eCommerce/issues"
+  },
+  "homepage": "https://github.com/WadeeaKiwan/Golden-Shoe-eCommerce#readme"
+}
