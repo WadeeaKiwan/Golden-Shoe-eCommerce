@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/WadeeaKiwan/Golden-Shoe-eCommerce/issues"
   },
-  "homepage": "https://github.com/WadeeaKiwan/Golden-Shoe-eCommerce#readme"
+  "homepage": "https://github.com/WadeeaKiwan/Golden-Shoe-eCommerce#readme",
+  "devDependencies": {
+    "@types/react-router-dom": "^5.3.1"
+  }
 }

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import { commerce } from "./lib/commerce";
-import Products from "./components/Products/Products";
 import { Product } from "@chec/commerce.js/types/product";
+
+import { ProductsList, NavBar, ProductDetails } from "./components";
 
 const App: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -19,10 +22,15 @@ const App: React.FC = () => {
   console.log(products);
 
   return (
-    <div className='App'>
-      <h1>Golden Shoe</h1>
-      <Products />
-    </div>
+    <Router>
+      <div className='App'>
+        <NavBar />
+        <Switch>
+          <Route exact path='/' render={() => <ProductsList products={products} />} />
+          <Route exact path='/product/:id' render={() => <ProductDetails />} />
+        </Switch>
+      </div>
+    </Router>
   );
 };
 
