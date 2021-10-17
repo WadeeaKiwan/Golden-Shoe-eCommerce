@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./App.css";
 
 import { commerce } from "./lib/commerce";
 import { Product } from "@chec/commerce.js/types/product";

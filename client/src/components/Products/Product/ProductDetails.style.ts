@@ -7,9 +7,17 @@ export default makeStyles((theme) => ({
     paddingTop: "3em"
   },
   toolbar: theme.mixins.toolbar,
+  backButton: {
+    marginBottom: "3em"
+  },
   content: {
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(6)
+  },
+  headAsset: {
+    height: "400px",
+    width: "400px",
+    objectFit: "contain"
   },
   assets: {
     display: "flex",
@@ -22,6 +30,14 @@ export default makeStyles((theme) => ({
     border: "2px solid #E5E7EB",
     borderRadius: "5px",
     padding: "2px",
-    objectFit: "contain"
+    objectFit: "contain",
+    height: "75px",
+    width: "75px",
+    "& :hover": {
+      border: "2px solid #4B5563",
+      borderRadius: "5px",
+      padding: "2px",
+      cursor: "pointer"
+    }
   }
 }));

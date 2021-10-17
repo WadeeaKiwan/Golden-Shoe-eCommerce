@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, useHistory } from "react-router";
 
 import { Product } from "@chec/commerce.js/types/product";
 import { commerce } from "../../../lib/commerce";
 
 import { Button, Container, Grid, Typography, Avatar } from "@material-ui/core";
-import { AddShoppingCart } from "@material-ui/icons";
+import { AddShoppingCart, ArrowBack } from "@material-ui/icons";
 import useStyles from "./ProductDetails.style";
 
 const ProductDetails: React.FC = () => {
   const [product, setProduct] = useState<Product>();
+  const [productAsset, setProductAsset] = useState<string | undefined>("");
   const { id }: { id: string } = useParams();
+  const history = useHistory();
 
   const classes = useStyles();
 
@@ -18,6 +20,7 @@ const ProductDetails: React.FC = () => {
     const product = await commerce.products.retrieve(id);
     console.log(product);
     setProduct(product);
+    setProductAsset(product?.assets[0].url);
   };
 
   useEffect(() => {
@@ -29,17 +32,30 @@ const ProductDetails: React.FC = () => {
   return (
     <Container className={classes.root}>
       <div className={classes.toolbar} />
+      <Button
+        className={classes.backButton}
+        aria-label='Back'
+        variant='outlined'
+        color='primary'
+        startIcon={<ArrowBack />}
+        onClick={() => history.goBack()}
+      >
+        Back
+      </Button>
       <Grid container justifyContent='center' spacing={6}>
         <Grid item>
-          <img src={product.assets[0].url} width='400px' alt={product.name} />
+          <img className={classes.headAsset} src={productAsset} alt={product.name} />
           <div className={classes.assets}>
             {product.assets.map((asset) => (
               <Avatar
-                key={asset.id}
-                className={classes.asset}
                 variant='square'
                 alt={product.name}
                 src={asset.url}
+                key={asset.id}
+                className={classes.asset}
+                onMouseOver={() =>
+                  setProductAsset(product?.assets.find((el) => el.url === asset.url)?.url)
+                }
               />
             ))}
           </div>
@@ -55,7 +71,7 @@ const ProductDetails: React.FC = () => {
             {product.price.formatted_with_symbol}
           </Typography>
           <Typography variant='body1' gutterBottom color='inherit'>
-            {product.inventory.available} in stock
+            <strong>{product.inventory.available}</strong> in stock
           </Typography>
           <Typography
             variant='body2'

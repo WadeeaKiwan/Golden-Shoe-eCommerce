@@ -11,10 +11,13 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     textDecoration: "none",
     color: "#CCB387",
-    fontFamily: "cursive, sans-serif",
     "& img": {
       height: "50px",
       paddingBottom: "15px"
+    },
+    "& h5": {
+      fontFamily: "cursive, sans-serif",
+      paddingLeft: "5px"
     }
   },
   button: {}
