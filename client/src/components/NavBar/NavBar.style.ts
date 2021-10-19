@@ -12,13 +12,12 @@ export default makeStyles((theme) => ({
     textDecoration: "none",
     color: "#CCB387",
     "& img": {
-      height: "50px",
+      height: "75px",
       paddingBottom: "15px"
     },
     "& h5": {
       fontFamily: "cursive, sans-serif",
       paddingLeft: "5px"
     }
-  },
-  button: {}
+  }
 }));

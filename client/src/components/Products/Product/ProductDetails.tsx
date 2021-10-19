@@ -8,7 +8,15 @@ import { Button, Container, Grid, Typography, Avatar } from "@material-ui/core";
 import { AddShoppingCart, ArrowBack } from "@material-ui/icons";
 import useStyles from "./ProductDetails.style";
 
-const ProductDetails: React.FC = () => {
+import ProductItem from "./ProductItem";
+import Spinner from "../../Layout/Spinner";
+
+type Props = {
+  onAddToCart: (productId: string, quantity: number) => Promise<void>;
+  inCart: (productId: string) => boolean | undefined;
+};
+
+const ProductDetails: React.FC<Props> = ({ onAddToCart, inCart }) => {
   const [product, setProduct] = useState<Product>();
   const [productAsset, setProductAsset] = useState<string | undefined>("");
   const { id }: { id: string } = useParams();
@@ -27,9 +35,9 @@ const ProductDetails: React.FC = () => {
     fetchProduct(id);
   }, [id]);
 
-  if (!product) return <p>Loading...</p>;
-
-  return (
+  return !product ? (
+    <Spinner />
+  ) : (
     <Container className={classes.root}>
       <div className={classes.toolbar} />
       <Button
@@ -42,7 +50,8 @@ const ProductDetails: React.FC = () => {
       >
         Back
       </Button>
-      <Grid container justifyContent='center' spacing={6}>
+
+      <Grid container justifyContent='space-between' spacing={6}>
         <Grid item>
           <img className={classes.headAsset} src={productAsset} alt={product.name} />
           <div className={classes.assets}>
@@ -60,6 +69,7 @@ const ProductDetails: React.FC = () => {
             ))}
           </div>
         </Grid>
+
         <Grid item>
           <Typography variant='h4' gutterBottom>
             {product.name}
@@ -73,6 +83,39 @@ const ProductDetails: React.FC = () => {
           <Typography variant='body1' gutterBottom color='inherit'>
             <strong>{product.inventory.available}</strong> in stock
           </Typography>
+
+          <div className={classes.colorContainer}>
+            <Typography variant='h6' color='textPrimary'>
+              Color
+            </Typography>
+            <div className={classes.colorOptionsContainer}>
+              {product.variant_groups
+                .filter((group) => group.name === "Color")[0]
+                .options.map((option) => (
+                  <div
+                    className={classes.colorOption}
+                    key={option.id}
+                    style={{ backgroundColor: option.name }}
+                  />
+                ))}
+            </div>
+          </div>
+
+          <div className={classes.sizeContainer}>
+            <Typography variant='h6' color='textPrimary'>
+              Size
+            </Typography>
+            <div className={classes.sizeOptionsContainer}>
+              {product.variant_groups
+                .filter((group) => group.name === "Size")[0]
+                .options.map((option) => (
+                  <Typography className={classes.sizeOption} key={option.id}>
+                    {option.name}
+                  </Typography>
+                ))}
+            </div>
+          </div>
+
           <Typography
             variant='body2'
             dangerouslySetInnerHTML={{ __html: product.description }}
@@ -80,16 +123,31 @@ const ProductDetails: React.FC = () => {
             color='textPrimary'
             component='p'
           />
-
           <Button
+            className={classes.addToCartButton}
             aria-label='Add to Cart'
             variant='contained'
             color='primary'
             endIcon={<AddShoppingCart />}
+            disabled={inCart(product.id)}
+            onClick={() => onAddToCart(product.id, 1)}
           >
-            Add to Cart
+            {inCart(product.id) ? "In Cart" : "Add to Cart"}
           </Button>
         </Grid>
+      </Grid>
+      <Typography
+        className={classes.relatedProductsHead}
+        variant='h5'
+        color='textSecondary'
+        gutterBottom
+      >
+        Related Products:
+      </Typography>
+      <Grid className={classes.relatedProductsContainer} container justifyContent='flex-start'>
+        {product.related_products.map((relatedProduct) => (
+          <ProductItem key={relatedProduct.id} product={relatedProduct} />
+        ))}
       </Grid>
     </Container>
   );

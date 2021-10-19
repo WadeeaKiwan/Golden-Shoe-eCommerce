@@ -1,9 +1,9 @@
+import { Link } from "react-router-dom";
+
 import { Product } from "@chec/commerce.js/types/product";
 
-import useStyles from "./ProductItem.style";
-
 import { Card, CardMedia, CardContent, CardActionArea, Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import useStyles from "./ProductItem.style";
 
 type Props = {
   product: Product;
@@ -14,11 +14,15 @@ const ProductItem: React.FC<Props> = ({ product }) => {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea component={Link} to={`/product/${product.id}`}>
+      <CardActionArea
+        component={Link}
+        to={`/product/${product.id}`}
+        disabled={product.conditionals?.is_sold_out}
+      >
         <CardMedia
           className={classes.media}
           component='img'
-          image={product.assets[0].url}
+          image={product.image.url}
           title={product.name}
         />
         <CardContent>
@@ -26,7 +30,9 @@ const ProductItem: React.FC<Props> = ({ product }) => {
             <Typography variant='h5' gutterBottom>
               {product.name}
             </Typography>
-            <Typography variant='h5'>{product.price.formatted_with_symbol}</Typography>
+            <Typography variant='h5' color='secondary'>
+              {product.price.formatted_with_symbol}
+            </Typography>
           </div>
         </CardContent>
       </CardActionArea>
