@@ -41,14 +41,26 @@ const App: React.FC = () => {
     setCart(response.cart);
   };
 
-  const onUpdateCart = async (productId: string, quantity: number) => {
-    const response = await commerce.cart.update(productId, { quantity });
+  const onUpdateCart = async (cartItemId: string, quantity: number) => {
+    const response = await commerce.cart.update(cartItemId, { quantity });
+
+    setCart(response.cart);
+  };
+
+  const onRemoveFromCart = async (cartItemId: string) => {
+    const response = await commerce.cart.remove(cartItemId);
+
+    setCart(response.cart);
+  };
+
+  const onEmptyCart = async () => {
+    const response = await commerce.cart.empty();
 
     setCart(response.cart);
   };
 
   const inCart = (productId: string) => {
-    const isInCart = cart?.line_items.some((el) => el.product_id === productId);
+    const isInCart = cart?.line_items.some((cartItem) => cartItem.product_id === productId);
     console.log(isInCart);
     return isInCart;
   };
@@ -77,7 +89,16 @@ const App: React.FC = () => {
           <Route
             exact
             path='/cart'
-            render={() => cart && <CartsList cart={cart} onUpdateCart={onUpdateCart} />}
+            render={() =>
+              cart && (
+                <CartsList
+                  cart={cart}
+                  onUpdateCart={onUpdateCart}
+                  onRemoveFromCart={onRemoveFromCart}
+                  onEmptyCart={onEmptyCart}
+                />
+              )
+            }
           />
           <Route component={NotFound} />
         </Switch>

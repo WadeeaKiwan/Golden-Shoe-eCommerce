@@ -145,9 +145,12 @@ const ProductDetails: React.FC<Props> = ({ onAddToCart, inCart }) => {
         Related Products:
       </Typography>
       <Grid className={classes.relatedProductsContainer} container justifyContent='flex-start'>
-        {product.related_products.map((relatedProduct) => (
-          <ProductItem key={relatedProduct.id} product={relatedProduct} />
-        ))}
+        {product.related_products.map(
+          (relatedProduct) =>
+            relatedProduct.quantity > 0 && (
+              <ProductItem key={relatedProduct.id} product={relatedProduct} />
+            )
+        )}
       </Grid>
     </Container>
   );

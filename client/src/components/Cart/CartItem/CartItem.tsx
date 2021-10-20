@@ -16,9 +16,10 @@ import { Link } from "react-router-dom";
 type Props = {
   cartItem: LineItem;
   onUpdateCart: (productId: string, quantity: number) => Promise<void>;
+  onRemoveFromCart: (cartItemId: string) => Promise<void>;
 };
 
-const CartItem: React.FC<Props> = ({ cartItem, onUpdateCart }) => {
+const CartItem: React.FC<Props> = ({ cartItem, onUpdateCart, onRemoveFromCart }) => {
   const classes = useStyles();
 
   return (
@@ -58,6 +59,14 @@ const CartItem: React.FC<Props> = ({ cartItem, onUpdateCart }) => {
           onClick={() => onUpdateCart(cartItem.id, cartItem.quantity + 1)}
         >
           +
+        </Button>
+        <Button
+          type='button'
+          variant='contained'
+          color='secondary'
+          onClick={() => onRemoveFromCart(cartItem.id)}
+        >
+          X
         </Button>
       </CardActions>
     </Card>
