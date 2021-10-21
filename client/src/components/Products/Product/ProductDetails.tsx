@@ -51,7 +51,7 @@ const ProductDetails: React.FC<Props> = ({ onAddToCart, inCart }) => {
         Back
       </Button>
 
-      <Grid container justifyContent='space-between' spacing={6}>
+      <Grid container justifyContent='center' spacing={6}>
         <Grid item>
           <img className={classes.headAsset} src={productAsset} alt={product.name} />
           <div className={classes.assets}>

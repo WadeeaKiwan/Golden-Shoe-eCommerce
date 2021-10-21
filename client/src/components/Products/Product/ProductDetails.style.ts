@@ -82,7 +82,8 @@ export default makeStyles((theme) => ({
     paddingBottom: "2em",
     "& > div": {
       width: "300px",
-      marginRight: "2em"
+      marginRight: "2em",
+      marginBottom: "2em"
     }
   }
 }));

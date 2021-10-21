@@ -6,8 +6,11 @@ import { commerce } from "./lib/commerce";
 import { Product } from "@chec/commerce.js/types/product";
 import { Cart } from "@chec/commerce.js/types/cart";
 
-import { ProductsList, NavBar, ProductDetails, CartsList, NotFound } from "./components";
+import { ProductsList, NavBar, ProductDetails, CartsList, Checkout, NotFound } from "./components";
 // import { VariantCollection } from "@chec/commerce.js/features/products";
+
+import { IconButton } from "@material-ui/core";
+import { ChatBubble } from "@material-ui/icons";
 
 const App: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -27,10 +30,7 @@ const App: React.FC = () => {
   };
 
   // const getVariants = async () => {
-  //   const variants = await commerce.products.getVariants("prod_RyWOwmdA0GlnEa", {
-  //     limit: 150,
-  //     page: 3
-  //   });
+  //   const variants = await commerce.products.getVariants("prod_RyWOwmdA0GlnEa");
 
   //   setVariant(variants);
   // };
@@ -61,7 +61,7 @@ const App: React.FC = () => {
 
   const inCart = (productId: string) => {
     const isInCart = cart?.line_items.some((cartItem) => cartItem.product_id === productId);
-    console.log(isInCart);
+
     return isInCart;
   };
 
@@ -71,8 +71,6 @@ const App: React.FC = () => {
     // getVariants();
   }, []);
 
-  console.log(products);
-  console.log(cart);
   // console.log({ variant });
 
   return (
@@ -100,8 +98,12 @@ const App: React.FC = () => {
               )
             }
           />
+          <Route exact path='/checkout' render={() => <Checkout />} />
           <Route component={NotFound} />
         </Switch>
+        <IconButton aria-label='Chat' className='chat-icon'>
+          <ChatBubble fontSize='large' />
+        </IconButton>
       </div>
     </Router>
   );

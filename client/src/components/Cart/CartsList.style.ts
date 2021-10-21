@@ -6,6 +6,7 @@ export default makeStyles((theme) => ({
   },
   toolbar: theme.mixins.toolbar,
   title: {
+    paddingTop: "0.5em",
     paddingBottom: "0.5em"
   },
   noItems: {

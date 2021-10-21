@@ -1,3 +1,18 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+}
+
+.App {
+  position: relative;
+}
+
+.chat-icon {
+  position: fixed !important;
+  height: 70px;
+  width: 70px;
+  bottom: 30px;
+  right: 30px;
+  background-color: #3f51b5 !important;
+  color: white !important;
 }
