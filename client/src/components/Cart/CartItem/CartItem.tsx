@@ -32,7 +32,7 @@ const CartItem: React.FC<Props> = ({ cartItem, onUpdateCart, onRemoveFromCart })
         <CardMedia
           className={classes.media}
           component='img'
-          image={cartItem.image.url}
+          image={cartItem.image?.url}
           title={cartItem.name}
         />
       </CardActionArea>

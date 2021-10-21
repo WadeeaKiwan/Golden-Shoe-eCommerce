@@ -22,7 +22,7 @@ const ProductItem: React.FC<Props> = ({ product }) => {
         <CardMedia
           className={classes.media}
           component='img'
-          image={product.image.url}
+          image={product.image?.url}
           title={product.name}
         />
         <CardContent>
