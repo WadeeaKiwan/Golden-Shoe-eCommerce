@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "An eCommerce application of the Golden Shoe store ",
   "main": "/server.ts",
+  "engines": {
+    "node": "18.18.0"
+  },
   "scripts": {
     "client": "npm start --prefix client",
     "build": "npm run build --prefix client",
