@@ -20,9 +20,9 @@
   },
   "homepage": "https://github.com/WadeeaKiwan/Golden-Shoe-eCommerce#readme",
   "devDependencies": {
-    "@types/node": "^16.11.1"
+    "@types/node": "^20.6.3"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.18.2"
   }
 }
